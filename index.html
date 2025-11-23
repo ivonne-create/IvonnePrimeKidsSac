@@ -263,32 +263,37 @@
         <div class="container">
             <div class="contact-wrapper">
                 <h2 class="section-title text-center" data-i18n="contact.title">Solicita Información o Agenda Tu Tour</h2>
-                <form class="contact-form" id="contactForm" onsubmit="handleFormSubmit(event)">
-                    <div class="form-group">
-                        <label for="name" data-i18n="contact.fields.name">Nombre Completo</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email" data-i18n="contact.fields.email">Correo Electrónico</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone" data-i18n="contact.fields.phone">Teléfono</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="childAge" data-i18n="contact.fields.childAge">Edad del Niño</label>
-                        <input type="text" id="childAge" name="childAge">
-                    </div>
-                    <div class="form-group">
-                        <label for="message" data-i18n="contact.fields.message">Mensaje (opcional)</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-large" data-i18n="contact.submit">Enviar Solicitud</button>
-                    <div class="form-message" id="formMessage"></div>
-                </form>
+				<form class="contact-form" id="contactForm">
+					<div class="form-group">
+						<label for="nombreCompleto" data-i18n="contact.fields.name">Nombre Completo</label>
+						<input type="text" id="nombreCompleto" name="nombreCompleto" required>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label for="correoElectronico" data-i18n="contact.fields.email">Correo Electrónico</label>
+							<input type="email" id="correoElectronico" name="correoElectronico" required>
+						</div>
+						<div class="form-group">
+							<label for="telefono" data-i18n="contact.fields.phone">Teléfono</label>
+							<input type="tel" id="telefono" name="telefono" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="edadNino" data-i18n="contact.fields.childAge">Edad del Niño</label>
+						<input type="text" id="edadNino" name="edadNino">
+					</div>
+					<div class="form-group">
+						<label for="mensaje" data-i18n="contact.fields.message">Mensaje (opcional)</label>
+						<textarea id="mensaje" name="mensaje" rows="4"></textarea>
+					</div>
+    
+					<!-- El botón conserva su atributo de traducción -->
+					<button type="submit" class="btn btn-primary btn-large" id="submitButton" data-i18n="contact.submit">Enviar Solicitud</button>
+    
+					<!-- Mensajes de estado (El texto lo pondrá el script según el idioma) -->
+					<div id="formStatusMessage" style="display:none; margin-top: 15px; font-weight: bold; text-align: center;"></div>
+				</form>
+			
             </div>
         </div>
     </section>
@@ -322,5 +327,72 @@
     </footer>
 
     <script src="script.js"></script>
+	<script>
+    // URL de tu Google Apps Script
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcECaR00tBfyagYCR-zE0FEF99bC_Ti-13hlYtumWWJaEFr5zB7-ic-HGWLNqJuieWbw/exec';
+    
+    const form = document.getElementById('contactForm');
+    const submitButton = document.getElementById('submitButton');
+    const statusMsg = document.getElementById('formStatusMessage');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Evita recarga de página
+
+        // 1. DETECTAR IDIOMA ACTUAL
+        // Buscamos el botón de inglés y vemos si tiene la clase 'active'
+        const isEnglish = document.querySelector('.lang-btn[data-lang="en"]').classList.contains('active');
+
+        // 2. DEFINIR TEXTOS SEGÚN IDIOMA
+        const texts = {
+            sending: isEnglish ? "Sending..." : "Enviando...",
+            success: isEnglish ? "Request sent successfully!" : "¡Tu solicitud ha sido enviada con éxito!",
+            error: isEnglish ? "An error occurred. Please try again." : "Hubo un error. Por favor intenta de nuevo."
+        };
+
+        // 3. PREPARAR UI (Guardamos el texto original del botón para no perder la traducción)
+        const originalButtonText = submitButton.textContent; 
+        submitButton.disabled = true;
+        submitButton.textContent = texts.sending;
+        
+        statusMsg.style.display = 'none';
+        statusMsg.className = ''; // Limpiar clases de colores previos
+
+        // 4. RECOPILAR DATOS
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => data[key] = value);
+        const urlEncodedData = new URLSearchParams(data).toString();
+
+        // 5. ENVIAR A GOOGLE
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: urlEncodedData
+        })
+        .then(response => {
+            // ÉXITO
+            statusMsg.textContent = texts.success;
+            statusMsg.style.color = '#4CAF50'; // Verde
+            statusMsg.style.display = 'block';
+            form.reset(); 
+        })
+        .catch(error => {
+            // ERROR
+            console.error('Error:', error);
+            statusMsg.textContent = texts.error;
+            statusMsg.style.color = '#D32F2F'; // Rojo
+            statusMsg.style.display = 'block';
+        })
+        .finally(() => {
+            // 6. RESTAURAR EL BOTÓN
+            submitButton.disabled = false;
+            // Devolvemos el texto original (que estaba en español o inglés)
+            submitButton.textContent = originalButtonText; 
+        });
+    });
+</script>
+	
 </body>
 </html>
+
