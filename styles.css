@@ -188,9 +188,17 @@ a:hover {
     flex-shrink: 0;
 }
 
+/* Estilo para el Logo Circular y Grande */
 .logo {
-    height: 50px;
-    width: auto;
+    width: 120px;           /* 1. Define el ANCHO (hazlo más grande aquí) */
+    height: 120px;          /* 2. Define el ALTO (debe ser igual al ancho) */
+    border-radius: 50%;     /* 3. Esto recorta la imagen en un CÍRCULO perfecto */
+    object-fit: cover;      /* 4. Asegura que la foto no se aplaste ni estire */
+    border: 3px solid #fff; /* 5. (Opcional) Un borde blanco elegante */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 6. Una sombrita suave para resaltar */
+      
+   /* height: 50px; */
+    /* width: auto; */
 }
 
 .nav-desktop {
