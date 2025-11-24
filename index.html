@@ -342,8 +342,12 @@
         // 1. DETECTAR IDIOMA ACTUAL
         // Buscamos el botón de inglés y vemos si tiene la clase 'active'
         const isEnglish = document.querySelector('.lang-btn[data-lang="en"]').classList.contains('active');
-
-        // 2. DEFINIR TEXTOS SEGÚN IDIOMA
+				
+		// --- CORRECCIÓN AQUÍ: Definimos la variable que faltaba ---
+        const idiomaCode = isEnglish ? "ENG" : "ESP"; 
+        // ----------------------------------------------------------
+				
+        // 2. DEFINIR TEXTOS VISUALES SEGÚN IDIOMA
         const texts = {
             sending: isEnglish ? "Sending..." : "Enviando...",
             success: isEnglish ? "Request sent successfully!" : "¡Tu solicitud ha sido enviada con éxito!",
