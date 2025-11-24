@@ -329,9 +329,10 @@
     <script src="script.js"></script>
 	<script>
     // URL de tu Google Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcECaR00tBfyagYCR-zE0FEF99bC_Ti-13hlYtumWWJaEFr5zB7-ic-HGWLNqJuieWbw/exec';
+    //const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcECaR00tBfyagYCR-zE0FEF99bC_Ti-13hlYtumWWJaEFr5zB7-ic-HGWLNqJuieWbw/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxfhZuoRieK772CWIlXKtOHsUTTz0jAsBDkc7f3eRR1sGlgfgcJ94F6V7ZJJIuaStAu/exec';
     
-    const form = document.getElementById('contactForm');
+	const form = document.getElementById('contactForm');
     const submitButton = document.getElementById('submitButton');
     const statusMsg = document.getElementById('formStatusMessage');
 
@@ -361,6 +362,11 @@
         const formData = new FormData(form);
         const data = {};
         formData.forEach((value, key) => data[key] = value);
+		
+		// CORRECCIÓN: Agregamos manualmente el campo de idioma al paquete de datos
+        data['idioma'] = idiomaCode; 
+		
+		// Convertimos a formato URL
         const urlEncodedData = new URLSearchParams(data).toString();
 
         // 5. ENVIAR A GOOGLE
