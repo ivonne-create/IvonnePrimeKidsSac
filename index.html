@@ -7,7 +7,63 @@
     <meta name="keywords" content="guardería, preescolar, bilingüe, Sacramento, cuidado infantil, educación">
     <meta name="author" content="Ivonne's Bilingual Childcare & Preschool">
     <title>Ivonne's Bilingual Childcare & Preschool - Sacramento</title>
+    <!-- Mantenemos tu hoja de estilos externa -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- CORRECCIÓN 1 y 2: Estilos añadidos para corregir Logo, Navegación y Acordeón -->
+    <style>
+        /* 1. CORRECCIÓN DEL LOGO: Asegura proporción y tamaño adecuado */
+        .logo-section .logo {
+            max-height: 80px; /* Ajusta este valor según el alto de tu barra de menú */
+            width: auto;      /* Mantiene la proporción original, evita que se estire */
+            display: block;
+        }
+
+        /* 2. CORRECCIÓN DE NAVEGACIÓN: Evita que el título quede oculto tras el menú fijo */
+        html {
+            scroll-behavior: smooth;
+        }
+        section {
+            /* Esto crea un margen invisible arriba al hacer scroll hacia una sección */
+            scroll-margin-top: 100px; 
+        }
+
+        /* 3. ESTILOS PARA EL ACORDEÓN (PREGUNTAS) */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out; /* Animación suave */
+            background-color: #f9f9f9;
+            padding: 0 15px; /* Padding lateral, el vertical se maneja por JS para suavidad */
+        }
+        
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .faq-item:last-child .faq-question {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        /* Clase activa para girar el icono */
+        .faq-question.active .faq-icon {
+            transform: rotate(45deg); 
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -15,6 +71,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo-section">
+                    <!-- El logo ahora obedece al CSS del <head> para verse proporcional -->
                     <img src="logo.png" alt="Ivonne's Bilingual Childcare Logo" class="logo">
                 </div>
 
@@ -209,12 +266,16 @@
             <h2 class="section-title text-center" data-i18n="faq.title">Preguntas Frecuentes</h2>
             <div class="faq-container">
                 <div class="faq-item">
+                    <!-- CORRECCIÓN: Se mantiene el onclick que llama a la nueva función JS -->
                     <button class="faq-question" onclick="toggleFaq(this)">
                         <span data-i18n="faq.items.0.question">¿Qué edades aceptan?</span>
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p data-i18n="faq.items.0.answer">Aceptamos niños desde recién nacidos hasta 5 años, incluyendo programas de PreK.</p>
+                        <!-- Se añade un div interno para dar padding sin afectar la animación -->
+                        <div style="padding: 15px 0;">
+                            <p data-i18n="faq.items.0.answer">Aceptamos niños desde recién nacidos hasta 5 años, incluyendo programas de PreK.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -223,7 +284,9 @@
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p data-i18n="faq.items.1.answer">No, aceptamos niños que hablan solo inglés, solo español, o ambos. La inmersión bilingüe es natural y se adapta a cada niño.</p>
+                        <div style="padding: 15px 0;">
+                            <p data-i18n="faq.items.1.answer">No, aceptamos niños que hablan solo inglés, solo español, o ambos. La inmersión bilingüe es natural y se adapta a cada niño.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -232,7 +295,9 @@
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p data-i18n="faq.items.2.answer">Incluye educación bilingüe, comidas orgánicas, materiales educativos, y comunicación diaria con las familias sobre el progreso de su hijo.</p>
+                        <div style="padding: 15px 0;">
+                            <p data-i18n="faq.items.2.answer">Incluye educación bilingüe, comidas orgánicas, materiales educativos, y comunicación diaria con las familias sobre el progreso de su hijo.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -241,7 +306,9 @@
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p data-i18n="faq.items.3.answer">Sí, estamos completamente licenciados por el Estado de California y somos miembros de NAFCC.</p>
+                        <div style="padding: 15px 0;">
+                            <p data-i18n="faq.items.3.answer">Sí, estamos completamente licenciados por el Estado de California y somos miembros de NAFCC.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -263,37 +330,35 @@
         <div class="container">
             <div class="contact-wrapper">
                 <h2 class="section-title text-center" data-i18n="contact.title">Solicita Información o Agenda Tu Tour</h2>
-				<form class="contact-form" id="contactForm">
-					<div class="form-group">
-						<label for="nombreCompleto" data-i18n="contact.fields.name">Nombre Completo</label>
-						<input type="text" id="nombreCompleto" name="nombreCompleto" required>
-					</div>
-					<div class="form-row">
-						<div class="form-group">
-							<label for="correoElectronico" data-i18n="contact.fields.email">Correo Electrónico</label>
-							<input type="email" id="correoElectronico" name="correoElectronico" required>
-						</div>
-						<div class="form-group">
-							<label for="telefono" data-i18n="contact.fields.phone">Teléfono</label>
-							<input type="tel" id="telefono" name="telefono" required>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="edadNino" data-i18n="contact.fields.childAge">Edad del Niño</label>
-						<input type="text" id="edadNino" name="edadNino">
-					</div>
-					<div class="form-group">
-						<label for="mensaje" data-i18n="contact.fields.message">Mensaje (opcional)</label>
-						<textarea id="mensaje" name="mensaje" rows="4"></textarea>
-					</div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="nombreCompleto" data-i18n="contact.fields.name">Nombre Completo</label>
+                        <input type="text" id="nombreCompleto" name="nombreCompleto" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="correoElectronico" data-i18n="contact.fields.email">Correo Electrónico</label>
+                            <input type="email" id="correoElectronico" name="correoElectronico" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono" data-i18n="contact.fields.phone">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edadNino" data-i18n="contact.fields.childAge">Edad del Niño</label>
+                        <input type="text" id="edadNino" name="edadNino">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje" data-i18n="contact.fields.message">Mensaje (opcional)</label>
+                        <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+                    </div>
     
-					<!-- El botón conserva su atributo de traducción -->
-					<button type="submit" class="btn btn-primary btn-large" id="submitButton" data-i18n="contact.submit">Enviar Solicitud</button>
+                    <button type="submit" class="btn btn-primary btn-large" id="submitButton" data-i18n="contact.submit">Enviar Solicitud</button>
     
-					<!-- Mensajes de estado (El texto lo pondrá el script según el idioma) -->
-					<div id="formStatusMessage" style="display:none; margin-top: 15px; font-weight: bold; text-align: center;"></div>
-				</form>
-			
+                    <div id="formStatusMessage" style="display:none; margin-top: 15px; font-weight: bold; text-align: center;"></div>
+                </form>
+            
             </div>
         </div>
     </section>
@@ -317,7 +382,7 @@
                 </div>
                 <div class="footer-column">
                     <h4 data-i18n-key="footer.location.label">Ubicación</h4>
-					<p>📍 Sacramento, California</p>
+                    <p>📍 Sacramento, California</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -327,54 +392,59 @@
     </footer>
 
     <script src="script.js"></script>
-	<script>
-    // URL de tu Google Apps Script
-    //const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcECaR00tBfyagYCR-zE0FEF99bC_Ti-13hlYtumWWJaEFr5zB7-ic-HGWLNqJuieWbw/exec';
-    //const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxfhZuoRieK772CWIlXKtOHsUTTz0jAsBDkc7f3eRR1sGlgfgcJ94F6V7ZJJIuaStAu/exec';
+    <script>
+    // CORRECCIÓN 3: Función para las preguntas frecuentes (Acordeón)
+    // Se añade aquí para asegurar que funcione sin dependencias externas
+    function toggleFaq(button) {
+        // Alternar clase 'active' para girar el icono +
+        button.classList.toggle('active');
+        
+        // Encontrar el div de respuesta (el siguiente elemento hermano)
+        var answer = button.nextElementSibling;
+        
+        // Lógica para abrir/cerrar usando maxHeight para animación suave
+        if (answer.style.maxHeight) {
+            answer.style.maxHeight = null; // Cerrar
+        } else {
+            answer.style.maxHeight = answer.scrollHeight + "px"; // Abrir
+        }
+    }
+
+    // --- CÓDIGO EXISTENTE DEL FORMULARIO DE CONTACTO ---
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgWj1Q_5n-RpSJGqx1sm5UsxK6rerIZ5KBDlIhG4RQqgoA-6gcUYJmTh-LHY9vFsuLIA/exec';
   
-	const form = document.getElementById('contactForm');
+    const form = document.getElementById('contactForm');
     const submitButton = document.getElementById('submitButton');
     const statusMsg = document.getElementById('formStatusMessage');
 
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Evita recarga de página
+        e.preventDefault(); 
 
-        // 1. DETECTAR IDIOMA ACTUAL
-        // Buscamos el botón de inglés y vemos si tiene la clase 'active'
         const isEnglish = document.querySelector('.lang-btn[data-lang="en"]').classList.contains('active');
-				
-		// --- CORRECCIÓN AQUÍ: Definimos la variable que faltaba ---
+                
         const idiomaCode = isEnglish ? "ENG" : "ESP"; 
-        // ----------------------------------------------------------
-				
-        // 2. DEFINIR TEXTOS VISUALES SEGÚN IDIOMA
+                
         const texts = {
             sending: isEnglish ? "Sending..." : "Enviando...",
             success: isEnglish ? "Request sent successfully!" : "¡Tu solicitud ha sido enviada con éxito!",
             error: isEnglish ? "An error occurred. Please try again." : "Hubo un error. Por favor intenta de nuevo."
         };
 
-        // 3. PREPARAR UI (Guardamos el texto original del botón para no perder la traducción)
         const originalButtonText = submitButton.textContent; 
         submitButton.disabled = true;
         submitButton.textContent = texts.sending;
         
         statusMsg.style.display = 'none';
-        statusMsg.className = ''; // Limpiar clases de colores previos
+        statusMsg.className = ''; 
 
-        // 4. RECOPILAR DATOS
         const formData = new FormData(form);
         const data = {};
         formData.forEach((value, key) => data[key] = value);
-		
-		// CORRECCIÓN: Agregamos manualmente el campo de idioma al paquete de datos
+        
         data['idioma'] = idiomaCode; 
-		
-		// Convertimos a formato URL
+        
         const urlEncodedData = new URLSearchParams(data).toString();
 
-        // 5. ENVIAR A GOOGLE
         fetch(SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -382,28 +452,23 @@
             body: urlEncodedData
         })
         .then(response => {
-            // ÉXITO
             statusMsg.textContent = texts.success;
-            statusMsg.style.color = '#4CAF50'; // Verde
+            statusMsg.style.color = '#4CAF50'; 
             statusMsg.style.display = 'block';
             form.reset(); 
         })
         .catch(error => {
-            // ERROR
             console.error('Error:', error);
             statusMsg.textContent = texts.error;
-            statusMsg.style.color = '#D32F2F'; // Rojo
+            statusMsg.style.color = '#D32F2F'; 
             statusMsg.style.display = 'block';
         })
         .finally(() => {
-            // 6. RESTAURAR EL BOTÓN
             submitButton.disabled = false;
-            // Devolvemos el texto original (que estaba en español o inglés)
             submitButton.textContent = originalButtonText; 
         });
     });
 </script>
-	
+    
 </body>
 </html>
-
