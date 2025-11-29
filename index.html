@@ -10,33 +10,64 @@
     <!-- Mantenemos tu hoja de estilos externa -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- CORRECCIÓN 1 y 2: Estilos añadidos para corregir Logo, Navegación y Acordeón -->
+    <!-- ESTILOS ESPECÍFICOS DE CORRECCIÓN -->
     <style>
-        /* 1. CORRECCIÓN DEL LOGO: Asegura proporción y tamaño adecuado */
+        /* 1. CORRECCIÓN AVANZADA DEL LOGO */
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
         .logo-section .logo {
-            max-height: 80px; /* Ajusta este valor según el alto de tu barra de menú */
-            width: auto;      /* Mantiene la proporción original, evita que se estire */
+            height: 85px; /* Tamaño aumentado para mejor visibilidad */
+            width: 85px;  /* Forzamos ancho igual al alto para asegurar cuadratura */
+            object-fit: contain; /* Asegura que el logo se vea completo */
+            border-radius: 50%; /* Refuerza la forma circular */
             display: block;
         }
 
-        /* 2. CORRECCIÓN DE NAVEGACIÓN: Evita que el título quede oculto tras el menú fijo */
-        html {
-            scroll-behavior: smooth;
+        /* CORRECCIÓN DE NAVEGACIÓN (Salto suave y espacio superior) */
+        html { scroll-behavior: smooth; }
+        section { scroll-margin-top: 110px; } /* Aumentado un poco por el tamaño del logo */
+
+        /* 2. CORRECCIÓN FINAL CTA (Reducir tamaño franja azul) */
+        .final-cta-section {
+            padding: 40px 20px !important; /* Reducimos el relleno vertical drásticamente */
         }
-        section {
-            /* Esto crea un margen invisible arriba al hacer scroll hacia una sección */
-            scroll-margin-top: 100px; 
+        .final-cta-section .cta-title {
+            margin-bottom: 10px;
         }
 
-        /* 3. ESTILOS PARA EL ACORDEÓN (PREGUNTAS) */
+        /* 3. CORRECCIÓN FOOTER (Reorganización compacta) */
+        .footer {
+            padding: 40px 0 20px 0;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 Columnas en lugar de 4 */
+            gap: 30px;
+            text-align: left;
+        }
+        /* Ajuste para móviles: 1 sola columna */
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+        .footer-column h3 { margin-bottom: 15px; font-size: 1.2rem; }
+        .footer-column h4 { margin-bottom: 10px; color: #fff; opacity: 0.9; }
+        .footer-column p { margin-bottom: 8px; font-size: 0.95rem; line-height: 1.4; }
+        .footer-column a { text-decoration: none; color: inherit; }
+        .footer-column a:hover { text-decoration: underline; }
+
+        /* ESTILOS ACORDEÓN (PREGUNTAS) */
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out; /* Animación suave */
+            transition: max-height 0.3s ease-out;
             background-color: #f9f9f9;
-            padding: 0 15px; /* Padding lateral, el vertical se maneja por JS para suavidad */
+            padding: 0 15px;
         }
-        
         .faq-question {
             width: 100%;
             text-align: left;
@@ -50,19 +81,8 @@
             align-items: center;
             font-weight: bold;
         }
-
-        .faq-item:last-child .faq-question {
-            border-bottom: 1px solid #ddd;
-        }
-
-        .faq-icon {
-            transition: transform 0.3s ease;
-        }
-
-        /* Clase activa para girar el icono */
-        .faq-question.active .faq-icon {
-            transform: rotate(45deg); 
-        }
+        .faq-item:last-child .faq-question { border-bottom: 1px solid #ddd; }
+        .faq-question.active .faq-icon { transform: rotate(45deg); }
     </style>
 </head>
 <body>
@@ -71,7 +91,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo-section">
-                    <!-- El logo ahora obedece al CSS del <head> para verse proporcional -->
+                    <!-- Logo optimizado -->
                     <img src="logo.png" alt="Ivonne's Bilingual Childcare Logo" class="logo">
                 </div>
 
@@ -112,7 +132,7 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Imagen principal carga "eager" para velocidad inmediata) -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -127,7 +147,7 @@
                     <p class="trust-line" data-i18n="hero.trustLine">⭐ 24 años de experiencia • Cientos de familias confían en nosotros</p>
                 </div>
                 <div class="hero-image">
-                    <img src="kids-diversity-1.png" alt="Niños felices aprendiendo" class="responsive-img">
+                    <img src="kids-diversity-1.png" alt="Niños felices aprendiendo" class="responsive-img" loading="eager">
                 </div>
             </div>
         </div>
@@ -165,12 +185,12 @@
         </div>
     </section>
 
-    <!-- About Ivonne Section -->
+    <!-- About Ivonne Section (Carga diferida "lazy" para velocidad) -->
     <section id="about" class="about-section">
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
-                    <img src="kids-diversity-2.png" alt="Ivonne con niños" class="responsive-img">
+                    <img src="kids-diversity-2.png" alt="Ivonne con niños" class="responsive-img" loading="lazy">
                 </div>
                 <div class="about-text">
                     <div class="badge badge-yellow" data-i18n="about.badge">Conoce a Ivonne</div>
@@ -191,7 +211,7 @@
         </div>
     </section>
 
-    <!-- Program Section -->
+    <!-- Program Section (Carga diferida "lazy") -->
     <section id="program" class="program-section">
         <div class="container">
             <div class="section-header">
@@ -201,7 +221,7 @@
             </div>
             <div class="program-content">
                 <div class="program-image">
-                    <img src="creative-spaces.png" alt="Espacios creativos de aprendizaje" class="responsive-img">
+                    <img src="creative-spaces.png" alt="Espacios creativos de aprendizaje" class="responsive-img" loading="lazy">
                 </div>
                 <div class="program-features">
                     <div class="feature-item">✓ <span data-i18n="program.features.0">Inmersión bilingüe español-inglés</span></div>
@@ -266,13 +286,11 @@
             <h2 class="section-title text-center" data-i18n="faq.title">Preguntas Frecuentes</h2>
             <div class="faq-container">
                 <div class="faq-item">
-                    <!-- CORRECCIÓN: Se mantiene el onclick que llama a la nueva función JS -->
                     <button class="faq-question" onclick="toggleFaq(this)">
                         <span data-i18n="faq.items.0.question">¿Qué edades aceptan?</span>
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <!-- Se añade un div interno para dar padding sin afectar la animación -->
                         <div style="padding: 15px 0;">
                             <p data-i18n="faq.items.0.answer">Aceptamos niños desde recién nacidos hasta 5 años, incluyendo programas de PreK.</p>
                         </div>
@@ -315,7 +333,7 @@
         </div>
     </section>
 
-    <!-- Final CTA Section -->
+    <!-- Final CTA Section (OPTIMIZADO: Línea azul más pequeña) -->
     <section class="final-cta-section">
         <div class="container">
             <h2 class="cta-title" data-i18n="finalCta.title">¿Lista para Dar el Siguiente Paso?</h2>
@@ -358,59 +376,51 @@
     
                     <div id="formStatusMessage" style="display:none; margin-top: 15px; font-weight: bold; text-align: center;"></div>
                 </form>
-            
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer (OPTIMIZADO: 3 Columnas compactas) -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
+                <!-- Columna 1: Branding -->
                 <div class="footer-column">
-                    <h3 data-i18n="footer.tagline">Cuidado bilingüe con amor en Sacramento</h3>
+                    <h3 data-i18n="footer.tagline">Cuidado bilingüe con amor</h3>
+                    <p data-i18n="footer.copyright">© 2024 Ivonne's Bilingual Childcare.</p>
                 </div>
-                <div class="footer-column">
-                    <h4 data-i18n-key="footer.hours.label">Horarios</h4>
-                    <p data-i18n="footer.hours">Lunes - Viernes: 7:00 AM - 6:00 PM</p>
-                </div>
+                
+                <!-- Columna 2: Contacto & Ubicación -->
                 <div class="footer-column">
                     <h4 data-i18n-key="footer.contact.label">Contacto</h4>
                     <p><a href="tel:(916)419-3563">📞 (916) 419-3563</a></p>
                     <p><a href="mailto:Ivonne@PrimeKidsSac.com">✉ Ivonne@PrimeKidsSac.com</a></p>
-                    <p><a href="mailto:ivonnechildcarepreschool@gmail.com">✉ ivonnechildcarepreschool@gmail.com</a></p>
-                </div>
-                <div class="footer-column">
-                    <h4 data-i18n-key="footer.location.label">Ubicación</h4>
                     <p>📍 Sacramento, California</p>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p data-i18n="footer.copyright">© 2024 Ivonne's Bilingual Childcare & Preschool. Todos los derechos reservados.</p>
+                
+                <!-- Columna 3: Horarios -->
+                <div class="footer-column">
+                    <h4 data-i18n-key="footer.hours.label">Horarios</h4>
+                    <p data-i18n="footer.hours">Lunes - Viernes: 7:00 AM - 6:00 PM</p>
+                </div>
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
     <script>
-    // CORRECCIÓN 3: Función para las preguntas frecuentes (Acordeón)
-    // Se añade aquí para asegurar que funcione sin dependencias externas
+    // JS para el Acordeón
     function toggleFaq(button) {
-        // Alternar clase 'active' para girar el icono +
         button.classList.toggle('active');
-        
-        // Encontrar el div de respuesta (el siguiente elemento hermano)
         var answer = button.nextElementSibling;
-        
-        // Lógica para abrir/cerrar usando maxHeight para animación suave
         if (answer.style.maxHeight) {
-            answer.style.maxHeight = null; // Cerrar
+            answer.style.maxHeight = null;
         } else {
-            answer.style.maxHeight = answer.scrollHeight + "px"; // Abrir
+            answer.style.maxHeight = answer.scrollHeight + "px";
         }
     }
 
-    // --- CÓDIGO EXISTENTE DEL FORMULARIO DE CONTACTO ---
+    // JS para el Formulario (Misma lógica existente)
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgWj1Q_5n-RpSJGqx1sm5UsxK6rerIZ5KBDlIhG4RQqgoA-6gcUYJmTh-LHY9vFsuLIA/exec';
   
     const form = document.getElementById('contactForm');
@@ -419,11 +429,9 @@
 
     form.addEventListener('submit', function(e) {
         e.preventDefault(); 
-
         const isEnglish = document.querySelector('.lang-btn[data-lang="en"]').classList.contains('active');
-                
         const idiomaCode = isEnglish ? "ENG" : "ESP"; 
-                
+        
         const texts = {
             sending: isEnglish ? "Sending..." : "Enviando...",
             success: isEnglish ? "Request sent successfully!" : "¡Tu solicitud ha sido enviada con éxito!",
@@ -433,14 +441,12 @@
         const originalButtonText = submitButton.textContent; 
         submitButton.disabled = true;
         submitButton.textContent = texts.sending;
-        
         statusMsg.style.display = 'none';
         statusMsg.className = ''; 
 
         const formData = new FormData(form);
         const data = {};
         formData.forEach((value, key) => data[key] = value);
-        
         data['idioma'] = idiomaCode; 
         
         const urlEncodedData = new URLSearchParams(data).toString();
@@ -468,7 +474,6 @@
             submitButton.textContent = originalButtonText; 
         });
     });
-</script>
-    
+    </script>
 </body>
 </html>
