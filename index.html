@@ -11,19 +11,40 @@
     <link rel="stylesheet" href="styles.css">
 
     <!-- ESTILOS ESPECÍFICOS DE CORRECCIÓN -->
-    <style>
-        /* 1. CORRECCIÓN AVANZADA DEL LOGO */
-        .logo-section {
-            display: flex;
-            align-items: center;
-        }
-        .logo-section .logo {
-            height: 120px; /* Tamaño aumentado para mejor visibilidad */
-            width: 120px;  /* Forzamos ancho igual al alto para asegurar cuadratura */
-            object-fit: contain; /* Asegura que el logo se vea completo */
-            border-radius: 50%; /* Refuerza la forma circular */
-            display: block;
-        }
+	<style>
+		/* 1. CORRECCIÓN AVANZADA DEL LOGO (Efecto 3D CSS) */
+			.logo-section {
+				display: flex;
+				align-items: center;
+				justify-content: center; /* Centra el logo perfectamente */
+			}
+        
+			.logo-section .logo {
+				height: 90px; /* Tamaño ligeramente mayor para mejor lectura */
+				width: 90px;  /* Cuadrado perfecto */
+            
+				/* TRUCO PARA VER TODO EL CONTENIDO: */
+				object-fit: contain; /* Ajusta la imagen para que NO se recorte nada del texto */
+				background-color: #ffffff; /* Fondo blanco para rellenar transparencias */
+            
+				/* EL EFECTO CIRCULAR Y 3D: */
+				border-radius: 50%; /* Crea el círculo perfecto */
+            
+				/* Sombra 3D optimizada (no pesa nada en la carga) */
+				box-shadow: 0 4px 8px rgba(0,0,0,0.2), 
+							0 6px 20px rgba(0,0,0,0.15); 
+            
+				/* Borde fino para definir la circunferencia si el fondo es blanco */
+				border: 2px solid #fff; 
+            
+				display: block;
+				transition: transform 0.3s ease; /* Efecto suave al pasar el mouse (opcional) */
+			}
+
+			/* Efecto extra: Si pasas el mouse, el logo "flota" */
+			.logo-section .logo:hover {
+            transform: scale(1.05);
+			}
 
         /* CORRECCIÓN DE NAVEGACIÓN (Salto suave y espacio superior) */
         html { scroll-behavior: smooth; }
