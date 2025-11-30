@@ -16,59 +16,59 @@
 			.logo-section {
 				display: flex;
 				align-items: center;
-				justify-content: center; /* Centra el logo perfectamente */
+				justify-content: center; 
 			}
         
 			.logo-section .logo {
-				height: 90px; /* Tamaño ligeramente mayor para mejor lectura */
-				width: 90px;  /* Cuadrado perfecto */
-            
-				/* TRUCO PARA VER TODO EL CONTENIDO: */
-				object-fit: contain; /* Ajusta la imagen para que NO se recorte nada del texto */
-				background-color: #ffffff; /* Fondo blanco para rellenar transparencias */
-            
-				/* EL EFECTO CIRCULAR Y 3D: */
-				border-radius: 50%; /* Crea el círculo perfecto */
-            
-				/* Sombra 3D optimizada (no pesa nada en la carga) */
+				height: 90px; 
+				width: 90px;  
+				object-fit: contain; 
+				background-color: #ffffff; 
+				border-radius: 50%; 
 				box-shadow: 0 4px 8px rgba(0,0,0,0.2), 
 							0 6px 20px rgba(0,0,0,0.15); 
-            
-				/* Borde fino para definir la circunferencia si el fondo es blanco */
 				border: 2px solid #fff; 
-            
 				display: block;
-				transition: transform 0.3s ease; /* Efecto suave al pasar el mouse (opcional) */
+				transition: transform 0.3s ease; 
 			}
 
-			/* Efecto extra: Si pasas el mouse, el logo "flota" */
 			.logo-section .logo:hover {
-            transform: scale(1.05);
+                transform: scale(1.05);
 			}
 
-        /* CORRECCIÓN DE NAVEGACIÓN (Salto suave y espacio superior) */
+        /* CORRECCIÓN DE NAVEGACIÓN */
         html { scroll-behavior: smooth; }
-        section { scroll-margin-top: 110px; } /* Aumentado un poco por el tamaño del logo */
+        section { scroll-margin-top: 110px; }
 
-        /* 2. CORRECCIÓN FINAL CTA (Reducir tamaño franja azul) */
+        /* 2. CORRECCIÓN FINAL CTA (Reducir espacio inferior) */
         .final-cta-section {
-            padding: 40px 20px !important; /* Reducimos el relleno vertical drásticamente */
+            /* CAMBIO REALIZADO AQUÍ: 
+               40px arriba, 20px derecha, 15px abajo (reducido), 20px izquierda. 
+               Esto elimina la "línea" vacía visual al final. */
+            padding: 40px 20px 15px 20px !important; 
         }
         .final-cta-section .cta-title {
             margin-bottom: 10px;
         }
+        /* Aseguramos que el último texto no empuje hacia abajo */
+        .cta-alternative {
+            margin-bottom: 0 !important;
+        }
 
-        /* 3. CORRECCIÓN FOOTER (Reorganización compacta) */
+        /* 3. CORRECCIÓN FOOTER (Reducir altura y espacios) */
         .footer {
-            padding: 40px 0 20px 0;
+            /* CAMBIO REALIZADO AQUÍ: Reduje el padding inferior a 10px */
+            padding: 40px 0 10px 0;
         }
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Columnas en lugar de 4 */
+            grid-template-columns: repeat(3, 1fr); 
             gap: 10px;
             text-align: left;
+            /* Reducimos margen inferior del grid para acercar el copyright */
+            margin-bottom: 10px; 
         }
-        /* Ajuste para móviles: 1 sola columna */
+        
         @media (max-width: 768px) {
             .footer-grid {
                 grid-template-columns: 1fr;
@@ -80,6 +80,16 @@
         .footer-column p { margin-bottom: 8px; font-size: 0.95rem; line-height: 1.4; }
         .footer-column a { text-decoration: none; color: inherit; }
         .footer-column a:hover { text-decoration: underline; }
+
+        /* CAMBIO REALIZADO AQUÍ: Controlar el bloque del copyright para pegarlo más arriba */
+        .footer-bottom {
+            margin-top: 10px !important; /* Espacio reducido entre info y copyright */
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1); /* Línea divisoria muy sutil */
+        }
+        .footer-bottom p {
+            margin: 0; /* Eliminar márgenes por defecto del párrafo */
+        }
 
         /* ESTILOS ACORDEÓN (PREGUNTAS) */
         .faq-answer {
@@ -153,7 +163,7 @@
         </div>
     </header>
 
-    <!-- Hero Section (Imagen principal carga "eager" para velocidad inmediata) -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -206,7 +216,7 @@
         </div>
     </section>
 
-    <!-- About Ivonne Section (Carga diferida "lazy" para velocidad) -->
+    <!-- About Ivonne Section -->
     <section id="about" class="about-section">
         <div class="container">
             <div class="about-content">
@@ -232,7 +242,7 @@
         </div>
     </section>
 
-    <!-- Program Section (Carga diferida "lazy") -->
+    <!-- Program Section -->
     <section id="program" class="program-section">
         <div class="container">
             <div class="section-header">
@@ -354,7 +364,7 @@
         </div>
     </section>
 
-    <!-- Final CTA Section (OPTIMIZADO: Línea azul más pequeña) -->
+    <!-- Final CTA Section (OPTIMIZADO) -->
     <section class="final-cta-section">
         <div class="container">
             <h2 class="cta-title" data-i18n="finalCta.title">¿Lista para Dar el Siguiente Paso?</h2>
@@ -401,7 +411,7 @@
         </div>
     </section>
 
-    <!-- Footer (OPTIMIZADO: 3 Columnas compactas) -->
+    <!-- Footer (OPTIMIZADO) -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
